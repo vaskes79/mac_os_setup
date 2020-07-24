@@ -79,23 +79,16 @@ ctags djview4 djvulibre docker docker-compose docker-machine fzf heroku htop ima
   ## Install base brew packages
   #################################################################################
   PACKAGES=(
-      ctags
       djview4
-      djvulibre
       docker
       docker-compose
-      fzf
-      heroku
       htop
       yarn
       youtube-dl
-      zsh
-      git
       tmux
       macvim
       vlc
       fzf
-      ctags
       ripgrep
       readline
       ffmpeg
