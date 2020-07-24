@@ -52,27 +52,6 @@ preparation(){
 
   ZSH=no
   OS_CONFIG=no
-
-  options=("xcode" "brew" "brew_packages" "brew_cask_pakages")
-
-  prompt="Check an option (again to uncheck, ENTER when done): "
-
-  while menu && read -rp "$prompt" num && [[ "$num" ]]; do
-    [[ "$num" != *[![:digit:]]* ]] &&
-    (( num > 0 && num <= ${#options[@]} )) ||
-    { msg="Invalid option: $num"; continue; }
-    ((num--)); msg="${options[num]} was ${choices[num]:+un}checked"
-    [[ "${choices[num]}" ]] && choices[num]="" || choices[num]="+"
-  done
-
-  printf "You selected"; msg=" nothing"
-
-  for i in ${!options[@]}; do
-      [[ "${choices[i]}" ]] && { printf " %s" "${options[i]}"; msg=""; }
-  done
-
-  echo "$msg"
-
 }
 
 instal_xcode(){
@@ -99,44 +78,40 @@ ctags djview4 djvulibre docker docker-compose docker-machine fzf heroku htop ima
   #################################################################################
   ## Install base brew packages
   #################################################################################
-  #PACKAGES=(
-  #    ctags
-  #    djview4
-  #    djvulibre
-  #    docker
-  #    docker-compose
-  #    docker-machine
-  #    fzf
-  #    heroku
-  #    htop
-  #    imagemagick
-  #    neovim
-  #    yarn
-  #    youtube-dl
-  #    zsh
-  #    git
-  #    tmux
-  #    macvim
-  #    nvim
-  #    vlc
-  #    fzf
-  #    ctags
-  #    ripgrep
-  #    readline
-  #    ffmpeg
-  #)
+  PACKAGES=(
+      ctags
+      djview4
+      djvulibre
+      docker
+      docker-compose
+      fzf
+      heroku
+      htop
+      yarn
+      youtube-dl
+      zsh
+      git
+      tmux
+      macvim
+      vlc
+      fzf
+      ctags
+      ripgrep
+      readline
+      ffmpeg
+  )
 
-  #echo "Installing packages..."
-  #brew install ${PACKAGES[@]}
+  echo "Installing packages..."
+  brew install ${PACKAGES[@]}
 
-  #################################################################################
-  ## Any additional steps you want to add here
-  #################################################################################
-  ## link readline
-  #brew link --force readline
+  ################################################################################
+  # Any additional steps you want to add here
+  ################################################################################
+  # link readline
+  brew link --force readline
 
-  #echo "Cleaning up..."
-  #brew cleanup
+  echo "Cleaning up..."
+  brew cleanup
 }
 
 install_brew_cask_pakages(){
@@ -200,9 +175,10 @@ ${RESET}"
 
 
   preparation
-
-  # install_update_brew
-  # install_brew_packages
+  
+  instal_xcode
+  install_update_brew
+  install_brew_packages
   # install_brew_cask_pakages
   # install_python
   # install_ruby
@@ -215,7 +191,6 @@ ${RESET}"
   # setup_nvim
   # setup_vscode
   # additional_config_os
-
 }
 
 MAIN "$@"
