@@ -1,7 +1,29 @@
 #!/usr/bin/env bash
-
 colors(){
-  echo "colors"
+	# Only use colors if connected to a terminal
+	if [ -t 1 ]; then
+		RED=$(printf '\033[31m')
+		GREEN=$(printf '\033[32m')
+		YELLOW=$(printf '\033[33m')
+		BLUE=$(printf '\033[34m')
+		BOLD=$(printf '\033[1m')
+		RESET=$(printf '\033[m')
+	else
+		RED=""
+		GREEN=""
+		YELLOW=""
+		BLUE=""
+		BOLD=""
+		RESET=""
+	fi
+}
+
+menu() {
+    echo "Avaliable options:"
+    for i in ${!options[@]}; do
+        printf "%3d%s) %s\n" $((i+1)) "${choices[i]:- }" "${options[i]}"
+    done
+    [[ "$msg" ]] && echo "$msg"; :
 }
 
 instal_xcode(){
@@ -10,9 +32,46 @@ instal_xcode(){
 }
 
 preparation(){
-  echo "Preparation"
+  echo "${YELLOW}stage: preparation${RESET}"
+  
+  XCODE=no
+  BREW=no
+  BREW_PACKAGES=no
+  INSTALL_BREW_CASK_PAKAGES=no
 
-  colors
+  RUBY=no
+  PYTHON=no
+  NVM=no
+  GO=no
+
+  DOCKER=no
+
+  VIM=no
+  NVIM=no
+  VSCODE=no
+
+  ZSH=no
+  OS_CONFIG=no
+
+  options=("xcode" "brew" "brew_packages" "brew_cask_pakages")
+
+  prompt="Check an option (again to uncheck, ENTER when done): "
+
+  while menu && read -rp "$prompt" num && [[ "$num" ]]; do
+    [[ "$num" != *[![:digit:]]* ]] &&
+    (( num > 0 && num <= ${#options[@]} )) ||
+    { msg="Invalid option: $num"; continue; }
+    ((num--)); msg="${options[num]} was ${choices[num]:+un}checked"
+    [[ "${choices[num]}" ]] && choices[num]="" || choices[num]="+"
+  done
+
+  printf "You selected"; msg=" nothing"
+
+  for i in ${!options[@]}; do
+      [[ "${choices[i]}" ]] && { printf " %s" "${options[i]}"; msg=""; }
+  done
+
+  echo "$msg"
 
 }
 
@@ -132,14 +191,18 @@ clean(){
 }
 
 MAIN(){
-  echo "
-################################################################################
-# Start script
-################################################################################"
+  colors
+
+  echo "${YELLOW}
+Start script
+--------------------------------------------------------------------------------
+${RESET}"
+
 
   preparation
+
   # install_update_brew
-   install_brew_packages
+  # install_brew_packages
   # install_brew_cask_pakages
   # install_python
   # install_ruby
@@ -155,4 +218,4 @@ MAIN(){
 
 }
 
-MAIN
+MAIN "$@"
