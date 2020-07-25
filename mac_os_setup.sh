@@ -243,11 +243,11 @@ EOF
 setup_vim(){
   echo "${YELLOW}Setup Vim${RESET}"
 
-  git clone git@github.com:vaskes79/vim.git ~/.vim --depth=1
-  git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle --depth=1
+  git clone git@github.com:vaskes79/vim.git ~/.vim
+  git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
-  ln -s ~/.vim/vimrc ~/.vimrc
-  ln -s ~/.vim/gvimrc ~/.gvimrc
+  ln -s ~/.vim/vimrc_mac ~/.vimrc
+  ln -s ~/.vim/gvimrc_mac ~/.gvimrc
 
 
   cd ~/.vim/spell
