@@ -27,12 +27,13 @@ menu() {
 }
 
 instal_xcode(){
-  echo "install xcode"
-  xcode-select —-install
+  echo "Install xcode"
+  xcode-select --install
 }
 
 preparation(){
-  echo "${YELLOW}stage: preparation${RESET}"
+  echo "${YELLOW}stage: preparation
+-----------------------------------${RESET}"
   
   XCODE=no
   BREW=no
@@ -52,23 +53,16 @@ preparation(){
 
   ZSH=no
   OS_CONFIG=no
-}
 
-instal_xcode(){
-  echo "install xcode"
-  xcode-select —-install
 }
 
 install_update_brew(){
-  echo "Install or update brew"
-  ################################################################################
-  # Check for Homebrew to be present, install if it's missing
-  ################################################################################
+  echo "${YELLOW}Install or update brew${RESET}"
+
   if test ! $(which brew); then
-      echo "Installing homebrew..."
+      echo "${YELLOW}Installing homebrew...${RESET}"
       ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
-  # Update homebrew recipes
 
   brew update
   brew tap Homebrew/bundle
@@ -76,65 +70,62 @@ install_update_brew(){
 }
 
 install_brew_packages(){
-  echo "${YELLOW}Brew will install follow packages:\n
-ctags djview4 djvulibre docker docker-compose docker-machine fzf heroku htop imagemagick neovim yarn youtube-dl zsh git tmux macvim nvim vlc fzf ctags ripgrep readline ffmpeg${RESET}"
+  echo "${YELLOW}Brew bundle install packages${RESET}"
+
   brew bundle install
 
-  ################################################################################
   # Any additional steps you want to add here
-  ################################################################################
-  # link readline
   brew link --force readline
 
-  echo "Cleaning up..."
+  echo "${YELLOW}Cleaning brew up...${RESET}"
   brew cleanup
 }
 
+install_docker(){
+  echo "${YELLOW}Install Docker and docker compose${RESET}"
+}
+
 install_python(){
-  echo "Install python"
+  echo "${YELLOW}Install python${RESET}"
 }
 
 install_ruby() {
-  echo "Instyll ruby"
+  echo "${YELLOW}Instyll ruby${RESET}"
 }
 
 install_go(){
-  echo "Instyll go"
+  echo "${YELLOW}Instyll go${RESET}"
 }
 
 install_nvm(){
-  echo "Install NVM"
-}
-
-install_docker(){
-  echo "Install Docker and docker compose"
+  echo "${YELLOW}Install NVM${RESET}"
 }
 
 setup_git(){
-  echo "Setup Git"
+  echo "${YELLOW}Setup Git${RESET}"
 }
 
 setup_zsh(){
-  echo "Setup ZSH"
+  echo "${YELLOW}Setup ZSH${RESET}"
 }
 
 setup_vim(){
-  echo "Setup Vim"
+  echo "${YELLOW}Setup Vim${RESET}"
 }
 setup_nvim(){
-  echo "Setup nvim"
+  echo "${YELLOW}Setup nvim${RESET}"
 }
 
 setup_vscode(){
-  echo "Setup Vscode"
+  echo "${YELLOW}Setup Vscode${RESET}"
 }
 
 additional_config_os(){
-  echo "Additional config OS"
+  echo "${YELLOW}Additional config OS${RESET}"
 }
 
 clean(){
-  echo "Clean installation"
+  echo "${YELLOW}Clean installation${RESET}"
 }
 
 MAIN(){
@@ -145,11 +136,10 @@ Start script
 --------------------------------------------------------------------------------
 ${RESET}"
 
-
   preparation
   
-  # instal_xcode
-  # install_update_brew
+  instal_xcode
+  install_update_brew
   install_brew_packages
   # install_python
   # install_ruby
