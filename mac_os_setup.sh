@@ -32,7 +32,7 @@ instal_xcode(){
 }
 
 preparation(){
-  echo "${YELLOW}stage: preparation
+  echo "${YELLOW}stage: PREPARATION
 -----------------------------------${RESET}"
   
   XCODE=no
@@ -57,6 +57,9 @@ preparation(){
 }
 
 install_update_brew(){
+  echo "${YELLOW}stage: HOMEBREW
+--------------------------------${RESET}"
+
   echo "${YELLOW}Install or update brew${RESET}"
 
   if test ! $(which brew); then

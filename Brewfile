@@ -6,27 +6,36 @@ tap "neovim/neovim"
 cask_args appdir: "/Applications"
 
 # Install brew packages
-brew "htop"
-brew "neovim"
-brew "bash-completion"
-brew "imagemagick"
-brew "djvulibre"
-brew "htop"
-brew "yarn"
-brew "youtube-dl"
-brew "tmux"
-brew "macvim"
-brew "fzf"
-brew "ripgrep"
-brew "readline"
-brew "ffmpeg"
-brew "awscli"
+## languages
+brew "go"
+brew "nvm"
 
-# Install cask packages
+## tools
+brew "htop"
+brew "imagemagick"
+# brew "bash-completion"
+# brew "tmux"
+brew "ffmpeg"
+brew "ripgrep"
+brew "fzf"
+brew "readline"
+brew "yarn"
 cask "docker"
 cask "iterm2"
-cask "google-chrome"
-cask "firefox"
+
+## editor
+brew "neovim"
+brew "macvim"
 cask "visual-studio-code"
+
+## cloud services
+brew "awscli"
+# cask "yandex-disk"
+
+## other
+brew "djvulibre"
 cask "vlc"
-cask "yandex-disk"
+brew "youtube-dl"
+cask "google-chrome"
+cask "microsoft-edge"
+cask "firefox"
