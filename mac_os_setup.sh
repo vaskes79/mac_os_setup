@@ -90,23 +90,7 @@ install_setup_nvm(){
 
   local ZSHRC=~/.zhsrc
 
-  cd ~/
-  git clone https://github.com/nvm-sh/nvm.git .nvm
-  cd .nvm
-  git checkout v0.35.3
-  . nvm.sh
-  
-  cd ~/
-  
-  cat >> $ZSHRC << EOF
-' 
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-'
-EOF
+  wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
 }
 
@@ -149,13 +133,13 @@ ${RESET}"
 
   preparation
   
-  instal_xcode
-  install_update_brew
-  install_brew_packages
+  # instal_xcode
+  # install_update_brew
+  # install_brew_packages
   install_setup_nvm 
   
-  echo "${YELLOW}stage: SETUP ENV
------------------------------------${RESET}"
+  #echo "${YELLOW}stage: SETUP ENV
+#-----------------------------------${RESET}"
   # setup_git
   # setup_zsh
   # setup_vim
