@@ -130,7 +130,7 @@ setup_zsh(){
 
   patch_oh_my_zsh
 
-  sed -i 's/robbyrussell/agnoster/' $ZSHRC_PATH
+  sed -i "s/robbyrussell/agnoster/" $ZSHRC_PATH
 
   echo "${YELLOW}Setup terminal${RESET}"
 }
@@ -242,6 +242,23 @@ EOF
 
 setup_vim(){
   echo "${YELLOW}Setup Vim${RESET}"
+
+  git clone git@github.com:vaskes79/vim.git ~/.vim --depth=1
+  git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle --depth=1
+
+  ln -s ~/.vim/vimrc ~/.vimrc
+  ln -s ~/.vim/gvimrc ~/.gvimrc
+
+
+  cd ~/.vim/spell
+
+  wget http://ftp.vim.org/vim/runtime/spell/ru.koi8-r.sug     
+  wget http://ftp.vim.org/vim/runtime/spell/ru.koi8-r.spl     
+  wget http://ftp.vim.org/vim/runtime/spell/en.ascii.sug     
+  wget http://ftp.vim.org/vim/runtime/spell/en.ascii.spl
+
+  vim +PluginInstall +qall
+
 }
 setup_nvim(){
   echo "${YELLOW}Setup nvim${RESET}"
@@ -278,10 +295,10 @@ ${RESET}"
   echo "${YELLOW}stage: SETUP ENV
 -----------------------------------${RESET}"
 
-  setup_zsh
+  # setup_zsh
   # setup_nvm 
-  setup_git
-  # setup_vim
+  # setup_git
+  setup_vim
   # setup_nvim
   # setup_vscode
   # additional_config_os
