@@ -110,12 +110,28 @@ EOF
   source $ZSHRC_PATH
 }
 
-setup_git(){
-  echo "${YELLOW}Setup Git${RESET}"
+setup_zsh(){
+  echo "${YELLOW}Install oh may  ZSH${RESET}"
+
+  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+
+  echo "${YELLOW}Add patch for powerline${RESET}"
+
+  # clone
+  git clone https://github.com/powerline/fonts.git --depth=1
+  # install
+  cd fonts
+  ./install.sh
+  # clean-up a bit
+  cd ..
+  rm -rf fonts
+
+  echo "${YELLOW}Setup terminal{RESET}"
 }
 
-setup_zsh(){
-  echo "${YELLOW}Setup ZSH${RESET}"
+setup_git(){
+  echo "${YELLOW}Setup Git${RESET}"
 }
 
 setup_vim(){
@@ -151,13 +167,14 @@ ${RESET}"
   
   # instal_xcode
   # install_update_brew
-  install_brew_packages
-  install_setup_nvm 
+  # install_brew_packages
+  # install_setup_nvm 
   
-  #echo "${YELLOW}stage: SETUP ENV
-#-----------------------------------${RESET}"
+  echo "${YELLOW}stage: SETUP ENV
+-----------------------------------${RESET}"
+
+  setup_zsh
   # setup_git
-  # setup_zsh
   # setup_vim
   # setup_nvim
   # setup_vscode
