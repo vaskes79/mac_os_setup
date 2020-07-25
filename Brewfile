@@ -8,7 +8,7 @@ cask_args appdir: "/Applications"
 # Install brew packages
 ## languages
 brew "go"
-brew "nvm"
+## brew "nvm"
 
 ## tools
 brew "htop"

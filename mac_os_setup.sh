@@ -58,7 +58,7 @@ preparation(){
 
 install_update_brew(){
   echo "${YELLOW}stage: HOMEBREW
---------------------------------${RESET}"
+-----------------------------------${RESET}"
 
   echo "${YELLOW}Install or update brew${RESET}"
 
@@ -84,24 +84,23 @@ install_brew_packages(){
   brew cleanup
 }
 
-install_docker(){
-  echo "${YELLOW}Install Docker and docker compose${RESET}"
-}
+install_setup_nvm(){
+  echo "${YELLOW}stage: NVM${RESET}"
+-----------------------------------${RESET}"
 
-install_python(){
-  echo "${YELLOW}Install python${RESET}"
-}
+  cd ~/
+  git clone https://github.com/nvm-sh/nvm.git .nvm
+  cd .nvm
+  git checkout v0.35.3
+  . nvm.sh
+  
+  cd ~/
+  echo '
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+' >> .zshrc
 
-install_ruby() {
-  echo "${YELLOW}Instyll ruby${RESET}"
-}
-
-install_go(){
-  echo "${YELLOW}Instyll go${RESET}"
-}
-
-install_nvm(){
-  echo "${YELLOW}Install NVM${RESET}"
 }
 
 setup_git(){
@@ -124,11 +123,13 @@ setup_vscode(){
 }
 
 additional_config_os(){
-  echo "${YELLOW}Additional config OS${RESET}"
+  echo "${YELLOW}stage: ADDITIONA OS SETTINGS
+-----------------------------------${RESET}"
 }
 
 clean(){
-  echo "${YELLOW}Clean installation${RESET}"
+  echo "${YELLOW}stage: CLEAN
+-----------------------------------${RESET}"
 }
 
 MAIN(){
@@ -144,17 +145,17 @@ ${RESET}"
   instal_xcode
   install_update_brew
   install_brew_packages
-  # install_python
-  # install_ruby
-  # install_go
-  # install_nvm
-  # install_docker
+  install_nvm
+  
+  echo "${YELLOW}stage: SETUP ENV
+-----------------------------------${RESET}"
   # setup_git
   # setup_zsh
   # setup_vim
   # setup_nvim
   # setup_vscode
   # additional_config_os
+  # clean
 }
 
 MAIN "$@"
