@@ -110,12 +110,7 @@ EOF
   source $ZSHRC_PATH
 }
 
-setup_zsh(){
-  echo "${YELLOW}Install oh may  ZSH${RESET}"
-
-  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-
+patch_oh_my_zsh(){
   echo "${YELLOW}Add patch for powerline${RESET}"
 
   # clone
@@ -126,7 +121,12 @@ setup_zsh(){
   # clean-up a bit
   cd ..
   rm -rf fonts
+}
 
+setup_zsh(){
+  echo "${YELLOW}Install oh may  ZSH${RESET}"
+
+  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" & patch_oh_my_zsh
   echo "${YELLOW}Setup terminal{RESET}"
 }
 
