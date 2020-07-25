@@ -94,7 +94,7 @@ EOF
   brew cleanup
 }
 
-install_setup_nvm(){
+setup_nvm(){
   echo "${YELLOW}stage: NVM
 -----------------------------------${RESET}"
   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
@@ -168,12 +168,12 @@ ${RESET}"
   # instal_xcode
   # install_update_brew
   # install_brew_packages
-  # install_setup_nvm 
   
   echo "${YELLOW}stage: SETUP ENV
 -----------------------------------${RESET}"
 
   setup_zsh
+  setup_nvm 
   # setup_git
   # setup_vim
   # setup_nvim
