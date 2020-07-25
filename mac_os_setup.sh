@@ -126,12 +126,116 @@ patch_oh_my_zsh(){
 setup_zsh(){
   echo "${YELLOW}Install oh may  ZSH${RESET}"
 
-  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" & patch_oh_my_zsh
-  echo "${YELLOW}Setup terminal{RESET}"
+  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
+
+  patch_oh_my_zsh
+
+  echo "${YELLOW}Setup terminal${RESET}"
 }
 
 setup_git(){
   echo "${YELLOW}Setup Git${RESET}"
+
+  local GIT_IGNORE_PATH=~/.gitignore_global
+  local GIT_CONFIG=~/.gitconfig
+
+  if [ ! -f "$GIT_IGNORE_PATH" ]; then
+
+  cat >> $GIT_IGNORE_PATH << EOF
+
+################################################################################
+# OS
+################################################################################
+
+################################################################################
+# NODE
+################################################################################
+
+# dependencies 
+###############
+/node_modules
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+# npmy https://www.npmjs.com/package/npmy
+.npmyrc
+
+# production
+###############
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+################################################################################
+# EDITORS
+################################################################################
+
+# vim
+###############
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-v][a-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+*~
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
+# vscode https://github.com/github/gitignore/blob/master/Global/VisualStudioCode.gitignore
+###############
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+EOF
+  echo "${YELLOW}creted $GIT_IGNORE_PATH file with:${RESET}
+  ${BLUE}$(cat < $GIT_IGNORE_PATH)${RESET}"
+  else 
+    echo "${GREEN}$GIT_IGNORE_PATH exists${RESET}"
+  fi
+
+
+  if [ ! -f "$GIT_CONFIG" ]; then
+    touch $GIT_CONFIG
+    cat >> $GIT_CONFIG << EOF
+[user]
+	email = vasily.guzov@gmail.com
+	name = Vasily Guzov
+[core]
+	excludesfile = "$GIT_IGNORE_PATH"
+	editor = vim
+[alias]
+    st = status
+    cm = commit -m
+	co = checkout
+	logg = log --graph --full-history --all --color --pretty=tformat:\"%x1b[31m%h%x09%x1b[32m%d%x1b[0m%x20%s\"
+	unstage = reset HEAD --
+	reseth = reset --hard HEAD
+	branch-history = for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/
+[format]
+	commitMessageColumns = 72
+[color]
+	ui = true
+EOF
+  
+  echo "${YELLOW}creted $GIT_CONFIG file with:${RESET}
+  ${BLUE}$(cat < $GIT_CONFIG)${RESET}"
+  else 
+    echo "${GREEN}$GIT_CONFIG exists${RESET}"
+  fi
+  
 }
 
 setup_vim(){
@@ -172,9 +276,9 @@ ${RESET}"
   echo "${YELLOW}stage: SETUP ENV
 -----------------------------------${RESET}"
 
-  setup_zsh
-  setup_nvm 
-  # setup_git
+  # setup_zsh
+  # setup_nvm 
+  setup_git
   # setup_vim
   # setup_nvim
   # setup_vscode
