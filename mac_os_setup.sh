@@ -264,28 +264,31 @@ setup_vim(){
 
   cd ~/.vim/bundle/youcompleteme
   
-  ptyhon3 install.py --all 
+  python3 install.py --all 
 
   open /Applications/Firefox.app https://wakatime.com/vim
 
   vim
 
 }
+
 setup_nvim(){
   echo "${YELLOW}Setup nvim${RESET}"
 
-  if [! -d ~/.config/nvim ]; then
-    mkdir -p ~/.config/nvim/
-    if [! -f ~/.config/nvim/init.vim ]; then
-      touch ~/.config/nvim/init.vim
-      cat >> ~/.config/nvim/init.vim << EOF
+  NVIM=~/.config/nvim
+
+  if [ ! -d $NVIM ]; then
+    mkdir -p $NVIM/
+    if [ ! -f $NVIM/init.vim ]; then
+      touch $NVIM/init.vim
+      cat >> $NVIM/init.vim << EOF
 if exists('g:vscode') 
-  # vscode
+  " vscode
 else
   set runtimepath^=~/.vim runtimepath+=~/.vim/after
   let &packpath = &runtimepath
   source ~/.vim/vimrc
-fi
+endif
 EOF
     fi
   fi
@@ -318,7 +321,7 @@ ${RESET}"
   
   # instal_xcode
   # install_update_brew
-  install_brew_packages
+  # install_brew_packages
   
   echo "${YELLOW}stage: SETUP ENV
 -----------------------------------${RESET}"
@@ -326,7 +329,7 @@ ${RESET}"
   # setup_zsh
   # setup_nvm 
   # setup_git
-  setup_vim
+  # setup_vim
   setup_nvim
   # setup_vscode
   # additional_config_os
