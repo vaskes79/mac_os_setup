@@ -130,9 +130,12 @@ setup_zsh(){
 
   patch_oh_my_zsh
 
-  sed -i "s/robbyrussell/agnoster/" $ZSHRC_PATH
-
   echo "${YELLOW}Setup terminal${RESET}"
+
+  # fix permissions on oh my zsh direcotry
+  # compaudit | xargs chmod g-w,o-w
+
+  sed -i 's/robbyrussell/agnoster/' $ZSHRC_PATH
 }
 
 setup_git(){
@@ -259,9 +262,34 @@ setup_vim(){
 
   vim +PluginInstall +qall
 
+  cd ~/.vim/bundle/youcompleteme
+  
+  ptyhon3 install.py --all 
+
+  open /Applications/Firefox.app https://wakatime.com/vim
+
+  vim
+
 }
 setup_nvim(){
   echo "${YELLOW}Setup nvim${RESET}"
+
+  if [! -d ~/.config/nvim ]; then
+    mkdir -p ~/.config/nvim/
+    if [! -f ~/.config/nvim/init.vim ]; then
+      touch ~/.config/nvim/init.vim
+      cat >> ~/.config/nvim/init.vim << EOF
+if exists('g:vscode') 
+  # vscode
+else
+  set runtimepath^=~/.vim runtimepath+=~/.vim/after
+  let &packpath = &runtimepath
+  source ~/.vim/vimrc
+fi
+EOF
+    fi
+  fi
+
 }
 
 setup_vscode(){
@@ -290,7 +318,7 @@ ${RESET}"
   
   # instal_xcode
   # install_update_brew
-  # install_brew_packages
+  install_brew_packages
   
   echo "${YELLOW}stage: SETUP ENV
 -----------------------------------${RESET}"
@@ -299,7 +327,7 @@ ${RESET}"
   # setup_nvm 
   # setup_git
   setup_vim
-  # setup_nvim
+  setup_nvim
   # setup_vscode
   # additional_config_os
   # clean

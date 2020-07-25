@@ -8,6 +8,8 @@ cask_args appdir: "/Applications"
 # Install brew packages
 ## languages
 brew "go"
+brew "python"
+brew "mono"
 ## brew "nvm"
 
 ## tools
@@ -24,11 +26,12 @@ brew "readline"
 brew "yarn"
 cask "docker"
 cask "iterm2"
+brew "cmake"
 
 ## editor
 brew "neovim"
-brew "macvim"
 cask "visual-studio-code"
+brew "macvim"
 
 ## cloud services
 brew "awscli"
