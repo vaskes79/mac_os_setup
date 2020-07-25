@@ -35,6 +35,7 @@ preparation(){
   echo "${YELLOW}stage: PREPARATION
 -----------------------------------${RESET}"
   
+  ZSHRC_PATH=~/.zshrc
   XCODE=no
   BREW=no
   BREW_PACKAGES=no
@@ -79,6 +80,15 @@ install_brew_packages(){
 
   # Any additional steps you want to add here
   brew link --force readline
+  cat >> ~/.zshrc << EOF
+
+# for readline
+export LDFLAGS="-L/usr/local/opt/readline/lib"
+export CPPFLAGS="-I/usr/local/opt/readline/include"
+
+EOF
+
+  source $ZSHRC_PATH
 
   echo "${YELLOW}Cleaning brew up...${RESET}"
   brew cleanup
@@ -87,11 +97,17 @@ install_brew_packages(){
 install_setup_nvm(){
   echo "${YELLOW}stage: NVM
 -----------------------------------${RESET}"
-
-  local ZSHRC=~/.zhsrc
-
   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
+  cat >> $ZSHRC_PATH << EOF
+
+# for NVM
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+EOF
+ 
+  source $ZSHRC_PATH
 }
 
 setup_git(){
@@ -135,7 +151,7 @@ ${RESET}"
   
   # instal_xcode
   # install_update_brew
-  # install_brew_packages
+  install_brew_packages
   install_setup_nvm 
   
   #echo "${YELLOW}stage: SETUP ENV
