@@ -69,33 +69,16 @@ install_update_brew(){
       ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
   # Update homebrew recipes
+
   brew update
+  brew tap Homebrew/bundle
+
 }
 
 install_brew_packages(){
-  echo "Brew will install follow packages:
-ctags djview4 djvulibre docker docker-compose docker-machine fzf heroku htop imagemagick neovim yarn youtube-dl zsh git tmux macvim nvim vlc fzf ctags ripgrep readline ffmpeg"
-  #################################################################################
-  ## Install base brew packages
-  #################################################################################
-  PACKAGES=(
-      djview4
-      docker
-      docker-compose
-      htop
-      yarn
-      youtube-dl
-      tmux
-      macvim
-      vlc
-      fzf
-      ripgrep
-      readline
-      ffmpeg
-  )
-
-  echo "Installing packages..."
-  brew install ${PACKAGES[@]}
+  echo "${YELLOW}Brew will install follow packages:\n
+ctags djview4 djvulibre docker docker-compose docker-machine fzf heroku htop imagemagick neovim yarn youtube-dl zsh git tmux macvim nvim vlc fzf ctags ripgrep readline ffmpeg${RESET}"
+  brew bundle install
 
   ################################################################################
   # Any additional steps you want to add here
@@ -105,10 +88,6 @@ ctags djview4 djvulibre docker docker-compose docker-machine fzf heroku htop ima
 
   echo "Cleaning up..."
   brew cleanup
-}
-
-install_brew_cask_pakages(){
-  echo "Install brew cask packages"
 }
 
 install_python(){
@@ -169,10 +148,9 @@ ${RESET}"
 
   preparation
   
-  instal_xcode
-  install_update_brew
+  # instal_xcode
+  # install_update_brew
   install_brew_packages
-  # install_brew_cask_pakages
   # install_python
   # install_ruby
   # install_go
