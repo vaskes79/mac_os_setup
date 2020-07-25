@@ -130,6 +130,8 @@ setup_zsh(){
 
   patch_oh_my_zsh
 
+  sed -i 's/robbyrussell/agnoster/' $ZSHRC_PATH
+
   echo "${YELLOW}Setup terminal${RESET}"
 }
 
@@ -276,7 +278,7 @@ ${RESET}"
   echo "${YELLOW}stage: SETUP ENV
 -----------------------------------${RESET}"
 
-  # setup_zsh
+  setup_zsh
   # setup_nvm 
   setup_git
   # setup_vim
