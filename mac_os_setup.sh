@@ -340,7 +340,7 @@ ${RESET}"
   # setup_nvm 
   # setup_git
   # setup_vim
-  setup_nvim
+  # setup_nvim
   # setup_vscode
   # additional_config_os
   # create_ssh
