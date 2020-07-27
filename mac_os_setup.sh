@@ -32,8 +32,8 @@ instal_xcode(){
 }
 
 preparation(){
-  echo "${YELLOW}stage: PREPARATION
------------------------------------${RESET}"
+  echo "${GREEN}stage: PREPARATION
+  -----------------------------------${RESET}"
   
   ZSHRC_PATH=~/.zshrc
   XCODE=no
@@ -57,11 +57,23 @@ preparation(){
 
 }
 
-install_update_brew(){
-  echo "${YELLOW}stage: HOMEBREW
------------------------------------${RESET}"
+create_ssh(){
+  ssh-keygen 
 
-  echo "${YELLOW}Install or update brew${RESET}"
+  cat ~/.ssh/id_ras.pu | pbcopy
+  
+  echo "${YELLOW}new key added to clipboard${REST}"
+
+  open https://github.com/settings/key
+  open https://bitbucket.org/account/settings/ssh-keys
+
+}
+
+install_update_brew(){
+  echo "${GREEN}stage: HOMEBREW
+  -----------------------------------${RESET}"
+
+  echo "${GREEN}Install or update brew${RESET}"
 
   if test ! $(which brew); then
       echo "${YELLOW}Installing homebrew...${RESET}"
@@ -74,7 +86,7 @@ install_update_brew(){
 }
 
 install_brew_packages(){
-  echo "${YELLOW}Brew bundle install packages${RESET}"
+  echo "${GREEN}Brew bundle install packages${RESET}"
 
   brew bundle install
 
@@ -88,15 +100,13 @@ export CPPFLAGS="-I/usr/local/opt/readline/include"
 
 EOF
 
-  source $ZSHRC_PATH
-
-  echo "${YELLOW}Cleaning brew up...${RESET}"
+  echo "${GREEN}Cleaning brew up...${RESET}"
   brew cleanup
 }
 
 setup_nvm(){
-  echo "${YELLOW}stage: NVM
------------------------------------${RESET}"
+  echo "${GREEN}stage: NVM
+  -----------------------------------${RESET}"
   wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash
 
   cat >> $ZSHRC_PATH << EOF
@@ -111,7 +121,7 @@ EOF
 }
 
 patch_oh_my_zsh(){
-  echo "${YELLOW}Add patch for powerline${RESET}"
+  echo "${GREEN}Add patch for powerline${RESET}"
 
   # clone
   git clone https://github.com/powerline/fonts.git --depth=1
@@ -124,13 +134,13 @@ patch_oh_my_zsh(){
 }
 
 setup_zsh(){
-  echo "${YELLOW}Install oh may  ZSH${RESET}"
+  echo "${GREEN}Install oh may  ZSH${RESET}"
 
   sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
   patch_oh_my_zsh
 
-  echo "${YELLOW}Setup terminal${RESET}"
+  echo "${GREEN}Setup terminal${RESET}"
 
   # fix permissions on oh my zsh direcotry
   compaudit | xargs chmod g-w,o-w
@@ -139,7 +149,7 @@ setup_zsh(){
 }
 
 setup_git(){
-  echo "${YELLOW}Setup Git${RESET}"
+  echo "${GREEN}Setup Git${RESET}"
 
   local GIT_IGNORE_PATH=~/.gitignore_global
   local GIT_CONFIG=~/.gitconfig
@@ -205,10 +215,10 @@ tags
 !.vscode/launch.json
 !.vscode/extensions.json
 EOF
-  echo "${YELLOW}creted $GIT_IGNORE_PATH file with:${RESET}
+  echo "${GREEN}creted $GIT_IGNORE_PATH file with:${RESET}
   ${BLUE}$(cat < $GIT_IGNORE_PATH)${RESET}"
   else 
-    echo "${GREEN}$GIT_IGNORE_PATH exists${RESET}"
+    echo "${YELLOW}$GIT_IGNORE_PATH exists${RESET}"
   fi
 
 
@@ -235,16 +245,16 @@ EOF
 	ui = true
 EOF
   
-  echo "${YELLOW}creted $GIT_CONFIG file with:${RESET}
+  echo "${GREEN}creted $GIT_CONFIG file with:${RESET}
   ${BLUE}$(cat < $GIT_CONFIG)${RESET}"
   else 
-    echo "${GREEN}$GIT_CONFIG exists${RESET}"
+    echo "${YELLOW}$GIT_CONFIG exists${RESET}"
   fi
   
 }
 
 setup_vim(){
-  echo "${YELLOW}Setup Vim${RESET}"
+  echo "${GREEN}Setup Vim${RESET}"
 
   git clone git@github.com:vaskes79/vim.git ~/.vim
   git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
@@ -273,7 +283,7 @@ setup_vim(){
 }
 
 setup_nvim(){
-  echo "${YELLOW}Setup nvim${RESET}"
+  echo "${GREEN}Setup nvim${RESET}"
 
   NVIM=~/.config/nvim
 
@@ -296,11 +306,11 @@ EOF
 }
 
 setup_vscode(){
-  echo "${YELLOW}Setup Vscode${RESET}"
+  echo "${GREEN}Setup Vscode${RESET}"
 }
 
 additional_config_os(){
-  echo "${YELLOW}stage: ADDITIONA OS SETTINGS
+  echo "${GREEN}stage: ADDITIONA OS SETTINGS
 -----------------------------------${RESET}"
 
   # # Set fast key repeat rate
@@ -322,14 +332,14 @@ additional_config_os(){
 }
 
 clean(){
-  echo "${YELLOW}stage: CLEAN
+  echo "${GREEN}stage: CLEAN
 -----------------------------------${RESET}"
 }
 
 MAIN(){
   colors
 
-  echo "${YELLOW}
+  echo "${GREEN}
 Start script
 --------------------------------------------------------------------------------
 ${RESET}"
@@ -340,7 +350,7 @@ ${RESET}"
   install_update_brew
   install_brew_packages
   
-  echo "${YELLOW}stage: SETUP ENV
+  echo "${GREEN}stage: SETUP ENV
 -----------------------------------${RESET}"
 
   setup_zsh
@@ -350,6 +360,7 @@ ${RESET}"
   setup_nvim
   # setup_vscode
   # additional_config_os
+  # create_ssh
   # clean
 }
 
