@@ -60,7 +60,7 @@ preparation(){
 create_ssh(){
   ssh-keygen 
 
-  cat ~/.ssh/id_ras.pu | pbcopy
+  cat ~/.ssh/id_rsa.pub | pbcopy
   
   echo "${YELLOW}new key added to clipboard${REST}"
 
