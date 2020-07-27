@@ -65,7 +65,7 @@ install_update_brew(){
 
   if test ! $(which brew); then
       echo "${YELLOW}Installing homebrew...${RESET}"
-      ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
   fi
 
   brew update
@@ -126,14 +126,14 @@ patch_oh_my_zsh(){
 setup_zsh(){
   echo "${YELLOW}Install oh may  ZSH${RESET}"
 
-  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" &
+  sh -c "$(wget -O- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
   patch_oh_my_zsh
 
   echo "${YELLOW}Setup terminal${RESET}"
 
   # fix permissions on oh my zsh direcotry
-  # compaudit | xargs chmod g-w,o-w
+  compaudit | xargs chmod g-w,o-w
 
   sed -i 's/robbyrussell/agnoster/' $ZSHRC_PATH
 }
@@ -302,6 +302,23 @@ setup_vscode(){
 additional_config_os(){
   echo "${YELLOW}stage: ADDITIONA OS SETTINGS
 -----------------------------------${RESET}"
+
+  # # Set fast key repeat rate
+  # defaults write NSGlobalDomain KeyRepeat -int 0
+
+  # # Require password as soon as screensaver or sleep mode starts
+  # defaults write com.apple.screensaver askForPassword -int 1
+  # defaults write com.apple.screensaver askForPasswordDelay -int 0
+  # 
+  # # Show filename extensions by default
+  # defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+  # # Enable tap-to-click
+  # defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad
+  # Clicking -bool true
+  # defaults -currentHost write NSGlobalDomain
+  # com.apple.mouse.tapBehavior -int 1
+
 }
 
 clean(){
@@ -319,17 +336,17 @@ ${RESET}"
 
   preparation
   
-  # instal_xcode
-  # install_update_brew
-  # install_brew_packages
+  instal_xcode
+  install_update_brew
+  install_brew_packages
   
   echo "${YELLOW}stage: SETUP ENV
 -----------------------------------${RESET}"
 
-  # setup_zsh
-  # setup_nvm 
-  # setup_git
-  # setup_vim
+  setup_zsh
+  setup_nvm 
+  setup_git
+  setup_vim
   setup_nvim
   # setup_vscode
   # additional_config_os
