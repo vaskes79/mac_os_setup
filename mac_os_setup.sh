@@ -58,14 +58,14 @@ preparation(){
 }
 
 create_ssh(){
-  ssh-keygen 
+  # ssh-keygen 
 
-  cat ~/.ssh/id_rsa.pub | pbcopy
+  # cat ~/.ssh/id_rsa.pub | pbcopy
   
-  echo "${YELLOW}new key added to clipboard${REST}"
+  echo "${YELLOW}new key copyed to clipboard${REST}"
 
-  open https://github.com/settings/key
-  open https://bitbucket.org/account/settings/ssh-keys
+  open https://github.com/settings/keys
+  open https://bitbucket.org/account/settings/ssh-keys/
 
 }
 
@@ -313,6 +313,10 @@ additional_config_os(){
   echo "${GREEN}stage: ADDITIONA OS SETTINGS
 -----------------------------------${RESET}"
 
+
+  # Remove all icons from dock
+  defaults write com.apple.dock persistent-apps -array
+
   # # Set fast key repeat rate
   # defaults write NSGlobalDomain KeyRepeat -int 0
 
@@ -320,8 +324,9 @@ additional_config_os(){
   # defaults write com.apple.screensaver askForPassword -int 1
   # defaults write com.apple.screensaver askForPasswordDelay -int 0
   # 
-  # # Show filename extensions by default
-  # defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+  # Show filename extensions by default
+  defaults write NSGlobalDomain AppleShowAllExtensions -bool true
 
   # # Enable tap-to-click
   # defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad
@@ -344,22 +349,22 @@ Start script
 --------------------------------------------------------------------------------
 ${RESET}"
 
-  preparation
+  # preparation
   
-  instal_xcode
-  install_update_brew
-  install_brew_packages
+  # instal_xcode
+  # install_update_brew
+  # install_brew_packages
   
   echo "${GREEN}stage: SETUP ENV
 -----------------------------------${RESET}"
 
-  setup_zsh
-  setup_nvm 
-  setup_git
-  setup_vim
-  setup_nvim
+  # setup_zsh
+  # setup_nvm 
+  # setup_vim
+  # setup_nvim
   # setup_vscode
   # additional_config_os
+  # setup_git
   # create_ssh
   # clean
 }
