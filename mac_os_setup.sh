@@ -255,31 +255,21 @@ EOF
 
 setup_vim(){
   echo "${GREEN}Setup Vim${RESET}"
-
   git clone git@github.com:vaskes79/vim.git ~/.vim
   git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-
+  vim +PluginInstall +qall
   ln -s ~/.vim/vimrc_mac ~/.vimrc
   ln -s ~/.vim/gvimrc_mac ~/.gvimrc
-
-
+  mkdir -p ~/.vim/spell 
   cd ~/.vim/spell
-
   wget http://ftp.vim.org/vim/runtime/spell/ru.koi8-r.sug     
   wget http://ftp.vim.org/vim/runtime/spell/ru.koi8-r.spl     
   wget http://ftp.vim.org/vim/runtime/spell/en.ascii.sug     
   wget http://ftp.vim.org/vim/runtime/spell/en.ascii.spl
-
-  vim +PluginInstall +qall
-
   cd ~/.vim/bundle/youcompleteme
-  
   python3 install.py --all 
-
-  open /Applications/Firefox.app https://wakatime.com/vim
-
+  open https://wakatime.com/vim
   vim
-
 }
 
 setup_nvim(){
@@ -360,7 +350,7 @@ ${RESET}"
 
   # setup_zsh
   # setup_nvm 
-  # setup_vim
+  setup_vim
   # setup_nvim
   # setup_vscode
   # additional_config_os
